@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sweet Balance 자사몰 홈페이지 — PR 설명 자료</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sb-green:        #00614E;
+    --sb-green-dark:   #004035;
+    --sb-yellow:       #F8CF77;
+    --sb-yellow-light: #FDF1D8;
+    --sb-blue:         #50AADC;
+    --sb-blue-light:   #D6EEF8;
+    --sb-light-green:  #D3EAE4;
+    --sb-cream:        #F9F6EF;
+    --sb-dark:         #1A2820;
+    --sb-text-mid:     #3A5248;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', 'Noto Sans KR', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-body); color: var(--sb-dark); background: var(--sb-cream); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; }
+
+  header.top {
+    background: var(--sb-green); color: #fff; padding: 56px 0 48px; text-align: center;
+  }
+  header.top .logo { font-family: var(--font-display); font-weight: 900; font-size: 20px; margin-bottom: 18px; }
+  header.top h1 { font-size: clamp(26px, 4vw, 38px); margin-bottom: 12px; }
+  header.top p { color: rgba(255,255,255,0.85); font-size: 15px; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+  section { padding: 52px 0; }
+  section h2 {
+    font-size: 22px; color: var(--sb-green-dark); margin-bottom: 22px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .badge {
+    background: var(--sb-light-green); color: var(--sb-green); font-size: 12px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  .layout-list { display: grid; gap: 14px; }
+  .layout-item {
+    background: #fff; border: 0.5px solid rgba(0,97,78,0.14); border-radius: 14px;
+    padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .layout-item .num {
+    flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--sb-green);
+    color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .layout-item b { display: block; margin-bottom: 4px; font-size: 15px; }
+  .layout-item span { font-size: 13.5px; color: var(--sb-text-mid); line-height: 1.6; }
+
+  .hero-feature {
+    background: #fff; border-radius: 20px; padding: 30px; border-top: 3px solid var(--sb-green);
+    box-shadow: 0 20px 40px -28px rgba(0,97,78,0.35);
+  }
+  .hero-feature .tag { display:inline-block; background: var(--sb-yellow-light); color: #8A5F00; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
+  .hero-feature h3 { font-size: 19px; color: var(--sb-green-dark); margin-bottom: 10px; }
+  .hero-feature p { font-size: 14.5px; color: var(--sb-text-mid); line-height: 1.7; }
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+  @media (max-width: 640px) { .flow { grid-template-columns: 1fr 1fr; } }
+  .flow div { background: var(--sb-cream); border-radius: 12px; padding: 12px; text-align: center; font-size: 12.5px; color: var(--sb-green-dark); font-weight: 500; }
+
+  table.answers { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px -12px rgba(0,97,78,0.25); }
+  table.answers th, table.answers td { padding: 14px 16px; text-align: left; font-size: 13.5px; vertical-align: top; }
+  table.answers th { background: var(--sb-green); color: #fff; font-weight: 500; }
+  table.answers tr:nth-child(even) td { background: var(--sb-cream); }
+  table.answers td.q { color: var(--sb-text-mid); width: 34%; }
+  table.answers td.a { font-weight: 500; width: 30%; }
+  table.answers td.w { color: var(--sb-green-dark); }
+
+  .files { display: grid; gap: 10px; }
+  .file-row {
+    background: #fff; border: 0.5px solid rgba(0,97,78,0.14); border-radius: 12px;
+    padding: 12px 16px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .file-row code { background: var(--sb-light-green); color: var(--sb-green-dark); padding: 3px 8px; border-radius: 6px; font-size: 13px; }
+  .file-row span { font-size: 13px; color: var(--sb-text-mid); }
+
+  footer { text-align: center; padding: 40px 0 60px; color: var(--sb-text-mid); font-size: 12.5px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="logo">Sweet Balance</div>
+    <h1>자사몰 홈페이지 — 무엇을 만들었나요</h1>
+    <p>식단관리를 하는 손님을 위한 첫 번째 홈페이지입니다. 이 문서는 이번 PR에서 만든 화면 구성과
+    인터뷰 답변이 어떻게 반영되었는지를 정리한 요약 자료예요.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2><span class="badge">화면 구성</span></h2>
+    <div class="layout-list">
+      <div class="layout-item">
+        <div class="num">1</div>
+        <div><b>첫 화면 (히어로)</b><span>펀더멘탈 그린 배경 위에 "맛있으면서 식단관리가 되는 메뉴, 여기 있어요" 헤드라인. 식단관리하는 손님을 향한 카피와 두 개의 CTA(식단 추천 / 대표 메뉴 보기)로 시작합니다.</span></div>
+      </div>
+      <div class="layout-item">
+        <div class="num">2</div>
+        <div><b>대표 제품 소개</b><span>닭가슴살 샐러드를 BEST 배지와 함께 소개하고, 단백질(28g)·칼로리(320kcal) 정보를 강조합니다.</span></div>
+      </div>
+      <div class="layout-item">
+        <div class="num">3</div>
+        <div><b>일주일 식단 추천 (주인공 기능)</b><span>버튼 클릭 한 번으로 월~일 7일 식단표를 생성하는 인터랙티브 기능. 아래에서 자세히 설명합니다.</span></div>
+      </div>
+      <div class="layout-item">
+        <div class="num">4</div>
+        <div><b>하단 브랜드 소개</b><span>스윗밸런스의 브랜드 가치(균형·자연스러움·따뜻함·신뢰)와 메뉴 목록을 정리한 푸터입니다.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="badge">주인공 기능</span> 일주일 식단 추천</h2>
+    <div class="hero-feature">
+      <span class="tag">이 페이지에서 가장 공들인 기능</span>
+      <h3>버튼 하나로 완성되는 일주일 식단표</h3>
+      <p>
+        "일주일 식단 추천" 버튼을 누르면, 스윗밸런스 메뉴 풀(닭가슴살 샐러드, 단백질 보울, 연어 포케 등)에서
+        7가지를 골라 월요일부터 일요일까지 배치합니다. 매일 다른 메뉴가 배정되고, 각 메뉴에는
+        칼로리·단백질 정보와 특징 배지가 함께 표시됩니다. 생성 후에는 일 평균 칼로리·단백질·메뉴 종류 수를
+        요약해서 보여주고, "다시 추천받기"로 다른 조합을 계속 받아볼 수 있습니다.
+      </p>
+      <div class="flow">
+        <div>① 버튼 클릭</div>
+        <div>② 7일 메뉴 랜덤 배정</div>
+        <div>③ 요일별 카드 애니메이션 표시</div>
+        <div>④ 평균 칼로리 · 단백질 요약</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="badge">반영된 인터뷰 답변</span></h2>
+    <table class="answers">
+      <tr><th>질문</th><th>답변</th><th>어디에 어떻게 반영했는지</th></tr>
+      <tr>
+        <td class="q">1. 손님은 누구인가요?</td>
+        <td class="a">식단관리하는 사람</td>
+        <td class="w">히어로 카피 전체가 "식단관리를 하고 있는 당신"을 향한 문장으로 작성됨</td>
+      </tr>
+      <tr>
+        <td class="q">2. 첫 화면에서 느꼈으면 하는 문장</td>
+        <td class="a">맛있으면서 식단관리가 되는 메뉴다</td>
+        <td class="w">히어로 헤드라인 문구로 그대로 사용</td>
+      </tr>
+      <tr>
+        <td class="q">3. 가장 보여주고 싶은 제품</td>
+        <td class="a">닭가슴살 샐러드 (단백질 + 맛)</td>
+        <td class="w">대표 제품 섹션의 유일한 스포트라이트 상품, 단백질/칼로리 수치와 카피에 이유 반영</td>
+      </tr>
+      <tr>
+        <td class="q">4. 건강 아이디어 기능</td>
+        <td class="a">일주일 식단 추천</td>
+        <td class="w">페이지의 주인공 기능으로 제작, 가장 큰 섹션·가장 정교한 인터랙션으로 구현</td>
+      </tr>
+      <tr>
+        <td class="q">5. 페이지 분위기</td>
+        <td class="a">신선한 초록 + 미니멀 화이트</td>
+        <td class="w">Sweet Balance 디자인 시스템의 펀더멘탈 그린 + 크림/화이트 배경과 자연스럽게 일치시켜 적용</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="badge">변경 파일</span></h2>
+    <div class="files">
+      <div class="file-row"><code>index.html</code><span>Sweet Balance 자사몰 홈페이지 본문 (신규 구성으로 전체 교체)</span></div>
+      <div class="file-row"><code>docs/pr-summary-homepage.html</code><span>이 PR 설명 자료 (신규)</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>Sweet Balance · 자연에서 온 균형, 딱 맞는 단맛.</footer>
+
+</body>
+</html>
