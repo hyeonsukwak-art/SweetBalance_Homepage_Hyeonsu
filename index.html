@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Balance | 자연에서 온 균형</title>
+<meta name="description" content="Sweet Balance - 딱 맞는 단맛, 성분에 타협하지 않는 안심. 자연에서 온 균형을 만나보세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sb-green:        #00614E;
+    --sb-green-dark:   #004035;
+    --sb-green-mid:    #007A62;
+    --sb-yellow:       #F8CF77;
+    --sb-yellow-light: #FDF1D8;
+    --sb-blue:         #50AADC;
+    --sb-blue-light:   #D6EEF8;
+    --sb-light-green:  #D3EAE4;
+    --sb-cream:        #F9F6EF;
+    --sb-dark:         #1A2820;
+    --sb-text-mid:     #3A5248;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', 'Noto Sans KR', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--sb-dark);
+    line-height: 1.6;
+    background: #fff;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.25; }
+
+  /* ---------- Buttons ---------- */
+  .sb-btn-primary {
+    display: inline-block;
+    background: var(--sb-yellow);
+    color: var(--sb-green-dark);
+    padding: 14px 34px;
+    border-radius: 30px;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .sb-btn-primary:hover { background: #f5c25a; transform: translateY(-2px); }
+
+  .sb-btn-primary.on-light {
+    background: var(--sb-green);
+    color: #fff;
+  }
+  .sb-btn-primary.on-light:hover { background: var(--sb-green-dark); }
+
+  .sb-btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    padding: 13px 28px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .sb-btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+
+  .sb-btn-secondary.on-light {
+    color: var(--sb-green);
+    border-color: var(--sb-green);
+  }
+  .sb-btn-secondary.on-light:hover { background: var(--sb-light-green); }
+
+  /* ---------- Badges ---------- */
+  .sb-badge-green  { display:inline-block; background: var(--sb-light-green); color: var(--sb-green); font-size: 12px; padding: 5px 14px; border-radius: 20px; font-weight: 700; letter-spacing: 0.02em; }
+  .sb-badge-yellow { display:inline-block; background: var(--sb-yellow-light); color: #8A5F00; font-size: 12px; padding: 5px 14px; border-radius: 20px; font-weight: 700; }
+  .sb-badge-blue   { display:inline-block; background: var(--sb-blue-light); color: #1A5A80; font-size: 12px; padding: 5px 14px; border-radius: 20px; font-weight: 700; }
+
+  /* ---------- Logo ---------- */
+  .sb-logo { font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: -0.01em; }
+  .sb-logo-sweet { color: var(--sb-green); }
+  .sb-logo-balance { color: var(--sb-green-dark); }
+  .sb-logo.on-dark .sb-logo-sweet,
+  .sb-logo.on-dark .sb-logo-balance { color: #fff; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0,97,78,0.08);
+  }
+  .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sb-text-mid);
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--sb-green); }
+  .nav-cta { display: flex; align-items: center; gap: 16px; }
+  .nav-cta .sb-btn-primary { padding: 10px 24px; font-size: 14px; }
+  .nav-toggle { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: linear-gradient(160deg, var(--sb-green) 0%, var(--sb-green-mid) 55%, var(--sb-green-dark) 100%);
+    color: #fff;
+    padding: 96px 24px 110px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: rgba(248,207,119,0.15);
+    top: -180px; right: -120px;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: rgba(80,170,220,0.12);
+    bottom: -160px; left: -100px;
+  }
+  .hero-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: 52px;
+    color: #fff;
+    margin: 20px 0 22px;
+  }
+  .hero h1 em { font-style: normal; color: var(--sb-yellow); }
+  .hero p.lead {
+    font-size: 17px;
+    color: rgba(255,255,255,0.88);
+    max-width: 480px;
+    margin-bottom: 34px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-visual {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 24px;
+    padding: 32px;
+    backdrop-filter: blur(4px);
+  }
+  .hero-visual .visual-badge-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .hero-visual-emoji {
+    font-size: 84px;
+    text-align: center;
+    padding: 30px 0;
+    background: rgba(255,255,255,0.08);
+    border-radius: 18px;
+    margin-bottom: 20px;
+  }
+  .hero-visual-caption { color: rgba(255,255,255,0.85); font-size: 14px; text-align: center; }
+
+  /* ---------- Stats strip ---------- */
+  .stats {
+    background: var(--sb-green-dark);
+    color: #fff;
+    padding: 44px 24px;
+  }
+  .stats-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  .stats-grid .num {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--sb-yellow);
+  }
+  .stats-grid .label { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+
+  /* ---------- Section shells ---------- */
+  section { padding: 100px 24px; }
+  .sb-section-white { background: #fff; }
+  .sb-section-cream { background: var(--sb-cream); }
+  .sb-section-light { background: var(--sb-light-green); }
+  .sb-section-dark  { background: var(--sb-green); color: #fff; }
+
+  .section-head { text-align: center; max-width: 620px; margin: 0 auto 56px; }
+  .section-head .sb-badge-green,
+  .section-head .sb-badge-blue { margin-bottom: 16px; }
+  .section-head h2 { font-size: 36px; color: var(--sb-dark); margin-bottom: 14px; }
+  .section-head p { color: var(--sb-text-mid); font-size: 16px; }
+  .sb-section-dark .section-head h2,
+  .sb-section-dark .section-head p { color: #fff; }
+  .sb-section-dark .section-head p { color: rgba(255,255,255,0.85); }
+
+  /* ---------- Brand intro ---------- */
+  .brand-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .brand-visual {
+    background: var(--sb-light-green);
+    border-radius: 24px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .brand-visual .tile {
+    background: #fff;
+    border-radius: 16px;
+    padding: 26px 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sb-green);
+    box-shadow: 0 8px 24px rgba(0,97,78,0.08);
+  }
+  .brand-visual .tile .emoji { font-size: 32px; display: block; margin-bottom: 10px; }
+  .brand-copy h2 { font-size: 34px; margin: 16px 0 18px; color: var(--sb-dark); }
+  .brand-copy p { color: var(--sb-text-mid); font-size: 16px; margin-bottom: 16px; }
+  .brand-values { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+
+  /* ---------- Cards ---------- */
+  .sb-card {
+    background: #fff;
+    border: 0.5px solid rgba(0, 97, 78, 0.12);
+    border-radius: 16px;
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+  }
+  .sb-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,97,78,0.1); }
+  .sb-card-accent { border-top: 3px solid var(--sb-green); }
+  .card-emoji { font-size: 30px; margin-bottom: 14px; }
+  .sb-card h3 { font-size: 19px; margin-bottom: 8px; color: var(--sb-dark); }
+  .sb-card p { font-size: 14px; color: var(--sb-text-mid); }
+
+  .grid-3 { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+  /* ---------- Products ---------- */
+  .product-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,97,78,0.08);
+    transition: transform 0.2s;
+  }
+  .product-card:hover { transform: translateY(-6px); }
+  .product-thumb {
+    background: linear-gradient(135deg, var(--sb-yellow-light), var(--sb-light-green));
+    font-size: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+  }
+  .product-body { padding: 22px; }
+  .product-body h3 { font-size: 18px; margin: 8px 0 8px; color: var(--sb-dark); }
+  .product-body p { font-size: 13.5px; color: var(--sb-text-mid); margin-bottom: 14px; }
+  .product-price { font-weight: 700; color: var(--sb-green); font-size: 15px; }
+
+  /* ---------- Features ---------- */
+  .feature-row {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .feature-item { display: flex; gap: 18px; padding: 8px; }
+  .feature-icon {
+    flex-shrink: 0;
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--sb-light-green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .feature-item h3 { font-size: 17px; margin-bottom: 6px; color: var(--sb-dark); }
+  .feature-item p { font-size: 14px; color: var(--sb-text-mid); }
+
+  /* ---------- Testimonials ---------- */
+  .testimonial-card {
+    background: var(--sb-cream);
+    border-radius: 18px;
+    padding: 28px;
+  }
+  .testimonial-stars { color: var(--sb-yellow); font-size: 15px; margin-bottom: 14px; letter-spacing: 2px; }
+  .testimonial-card p.quote { font-size: 14.5px; color: var(--sb-text-mid); margin-bottom: 18px; }
+  .testimonial-user { display: flex; align-items: center; gap: 12px; }
+  .testimonial-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--sb-green);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .testimonial-name { font-size: 14px; font-weight: 700; color: var(--sb-dark); }
+  .testimonial-meta { font-size: 12px; color: var(--sb-text-mid); }
+
+  /* ---------- CTA band ---------- */
+  .cta-band {
+    background: linear-gradient(135deg, var(--sb-green) 0%, var(--sb-green-dark) 100%);
+    color: #fff;
+    text-align: center;
+    border-radius: 28px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 72px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::after {
+    content: "";
+    position: absolute;
+    width: 300px; height: 300px;
+    background: rgba(248,207,119,0.15);
+    border-radius: 50%;
+    top: -140px; right: -80px;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 14px; position: relative; z-index: 2; }
+  .cta-band p { color: rgba(255,255,255,0.85); font-size: 16px; margin-bottom: 30px; position: relative; z-index: 2; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--sb-dark); color: rgba(255,255,255,0.7); padding: 64px 24px 28px; }
+  .footer-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand p { font-size: 13.5px; margin: 14px 0 18px; max-width: 260px; color: rgba(255,255,255,0.6); }
+  .footer-col h4 { font-size: 14px; color: #fff; margin-bottom: 16px; font-weight: 700; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 13.5px; color: rgba(255,255,255,0.6); transition: color 0.15s; }
+  .footer-col ul li a:hover { color: var(--sb-yellow); }
+  .footer-bottom {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    font-size: 12.5px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .footer-social a:hover { background: var(--sb-green); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 38px; }
+    .brand-grid { grid-template-columns: 1fr; }
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .feature-row { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    section { padding: 64px 20px; }
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .hero { padding: 64px 20px 80px; }
+    .hero h1 { font-size: 30px; }
+    .section-head h2 { font-size: 28px; }
+    .cta-band { padding: 48px 24px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="sb-logo"><span class="sb-logo-sweet">Sweet</span> <span class="sb-logo-balance">Balance</span></div>
+    <nav class="nav-links">
+      <a href="#brand">브랜드</a>
+      <a href="#products">제품</a>
+      <a href="#features">특징</a>
+      <a href="#reviews">후기</a>
+      <a href="#contact">문의</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="sb-btn-primary on-light">시작하기</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="sb-badge-yellow">🌿 자연에서 온 균형</span>
+      <h1>딱 맞는 단맛,<br>그 이상의 <em>균형</em>을 만나보세요</h1>
+      <p class="lead">Sweet Balance는 성분에 타협하지 않는 안심과 자연 그대로의 맛을 담아, 과하지도 부족하지도 않은 딱 맞는 달콤함을 전합니다.</p>
+      <div class="hero-actions">
+        <a href="#products" class="sb-btn-primary">제품 둘러보기</a>
+        <a href="#brand" class="sb-btn-secondary">브랜드 스토리</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="visual-badge-row">
+        <span class="sb-badge-yellow">무첨가</span>
+        <span class="sb-badge-blue">저당</span>
+        <span class="sb-badge-green" style="background:rgba(255,255,255,0.15); color:#fff;">자연 유래</span>
+      </div>
+      <div class="hero-visual-emoji">🍯</div>
+      <p class="hero-visual-caption">자연 재료 본연의 맛, 있는 그대로.</p>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stats-grid">
+    <div><div class="num">10만+</div><div class="label">누적 고객</div></div>
+    <div><div class="num">4.9</div><div class="label">평균 평점</div></div>
+    <div><div class="num">30%</div><div class="label">평균 당 함량 절감</div></div>
+    <div><div class="num">100%</div><div class="label">무첨가 원칙</div></div>
+  </div>
+</div>
+
+<section id="brand" class="sb-section-cream">
+  <div class="brand-grid">
+    <div class="brand-visual">
+      <div class="tile"><span class="emoji">🌱</span>자연 유래 원료</div>
+      <div class="tile"><span class="emoji">⚖️</span>균형 잡힌 배합</div>
+      <div class="tile"><span class="emoji">🔬</span>성분 투명 공개</div>
+      <div class="tile"><span class="emoji">💚</span>정성스러운 제조</div>
+    </div>
+    <div class="brand-copy">
+      <span class="sb-badge-green">Our Story</span>
+      <h2>자연스러움과 신뢰,<br>그 균형을 지켜갑니다</h2>
+      <p>Sweet Balance는 인공적인 단맛 대신 재료 본연의 맛과 가치를 담습니다. 과하지 않은 정성, 부족하지 않은 진심으로 모두가 안심하고 즐길 수 있는 단맛을 만듭니다.</p>
+      <p>성분 하나하나에 타협하지 않고, 정직하게 공개합니다. 달콤함과 건강, 그 사이의 완벽한 균형이 Sweet Balance가 추구하는 가치입니다.</p>
+      <div class="brand-values">
+        <span class="sb-badge-green">균형</span>
+        <span class="sb-badge-yellow">자연스러움</span>
+        <span class="sb-badge-blue">신뢰</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="sb-section-light">
+  <div class="section-head">
+    <span class="sb-badge-blue">Products</span>
+    <h2>제품 & 서비스</h2>
+    <p>일상 속 작은 달콤함부터 맞춤 큐레이션까지, 균형 잡힌 선택을 제안합니다.</p>
+  </div>
+  <div class="grid-4">
+    <div class="product-card">
+      <div class="product-thumb">🍪</div>
+      <div class="product-body">
+        <span class="sb-badge-green">Best</span>
+        <h3>저당 쿠키 박스</h3>
+        <p>당 함량은 낮추고 풍미는 그대로 살린 데일리 쿠키.</p>
+        <div class="product-price">₩18,900</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🍫</div>
+      <div class="product-body">
+        <span class="sb-badge-yellow">New</span>
+        <h3>발란스 초콜릿</h3>
+        <p>천연 감미료로 만든 부드럽고 깊은 맛의 초콜릿.</p>
+        <div class="product-price">₩14,500</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🥤</div>
+      <div class="product-body">
+        <span class="sb-badge-blue">인기</span>
+        <h3>과일 발효 음료</h3>
+        <p>자연 발효로 은은한 단맛을 살린 건강 음료.</p>
+        <div class="product-price">₩6,900</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-thumb">🍨</div>
+      <div class="product-body">
+        <span class="sb-badge-green">추천</span>
+        <h3>균형 그래놀라</h3>
+        <p>든든한 한 끼, 자연 단맛으로 채운 그래놀라.</p>
+        <div class="product-price">₩12,900</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="sb-section-white">
+  <div class="section-head">
+    <span class="sb-badge-green">Why Sweet Balance</span>
+    <h2>이런 점이 다릅니다</h2>
+    <p>딱 맞는 단맛을 만들기 위한 Sweet Balance만의 원칙입니다.</p>
+  </div>
+  <div class="feature-row">
+    <div class="feature-item">
+      <div class="feature-icon">🌿</div>
+      <div>
+        <h3>자연 유래 원료만</h3>
+        <p>인공 감미료 대신 자연에서 온 재료로 은은한 단맛을 냅니다.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">⚖️</div>
+      <div>
+        <h3>딱 맞는 당 균형</h3>
+        <p>맛과 건강 사이, 과하지도 부족하지도 않은 균형을 찾았습니다.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔍</div>
+      <div>
+        <h3>투명한 성분 공개</h3>
+        <p>모든 원재료와 함량을 숨김없이 공개하여 안심할 수 있습니다.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">💚</div>
+      <div>
+        <h3>정성 가득한 제조</h3>
+        <p>작은 배치로 정성껏 만들어 신선함과 품질을 지킵니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="sb-section-cream">
+  <div class="section-head">
+    <span class="sb-badge-blue">Reviews</span>
+    <h2>고객들의 이야기</h2>
+    <p>Sweet Balance와 함께한 분들의 솔직한 후기입니다.</p>
+  </div>
+  <div class="grid-3">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="quote">"단맛이 과하지 않아서 매일 먹어도 부담이 없어요. 성분표를 보고 더 믿음이 갔습니다."</p>
+      <div class="testimonial-user">
+        <div class="testimonial-avatar">J</div>
+        <div>
+          <div class="testimonial-name">정지은</div>
+          <div class="testimonial-meta">저당 쿠키 박스 구매</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="quote">"아이 간식으로 고민이 많았는데, 이제는 Sweet Balance만 찾아요. 자연스러운 단맛이 좋아요."</p>
+      <div class="testimonial-user">
+        <div class="testimonial-avatar">K</div>
+        <div>
+          <div class="testimonial-name">김민수</div>
+          <div class="testimonial-meta">균형 그래놀라 구매</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="quote">"딱 좋은 균형이라는 말이 정말 잘 어울려요. 앞으로도 꾸준히 구매할 예정입니다."</p>
+      <div class="testimonial-user">
+        <div class="testimonial-avatar">L</div>
+        <div>
+          <div class="testimonial-name">이서연</div>
+          <div class="testimonial-meta">발란스 초콜릿 구매</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="sb-section-white" style="padding-bottom: 100px;">
+  <div class="cta-band">
+    <h2>지금, 딱 맞는 단맛을 시작하세요</h2>
+    <p>Sweet Balance와 함께 자연에서 온 균형을 경험해보세요.</p>
+    <div class="cta-actions">
+      <a href="#products" class="sb-btn-primary">제품 보러가기</a>
+      <a href="mailto:hello@sweetbalance.kr" class="sb-btn-secondary">문의하기</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="sb-logo on-dark"><span class="sb-logo-sweet">Sweet</span> <span class="sb-logo-balance">Balance</span></div>
+      <p>자연에서 온 균형, 딱 맞는 단맛. Sweet Balance는 성분에 타협하지 않습니다.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">📷</a>
+        <a href="#" aria-label="Blog">✏️</a>
+        <a href="#" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>제품</h4>
+      <ul>
+        <li><a href="#products">쿠키</a></li>
+        <li><a href="#products">초콜릿</a></li>
+        <li><a href="#products">음료</a></li>
+        <li><a href="#products">그래놀라</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>회사</h4>
+      <ul>
+        <li><a href="#brand">브랜드 스토리</a></li>
+        <li><a href="#features">차별점</a></li>
+        <li><a href="#reviews">고객 후기</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>고객지원</h4>
+      <ul>
+        <li><a href="mailto:hello@sweetbalance.kr">이메일 문의</a></li>
+        <li><a href="#contact">자주 묻는 질문</a></li>
+        <li><a href="#contact">배송 안내</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Sweet Balance. All rights reserved.</span>
+    <span>hello@sweetbalance.kr</span>
+  </div>
+</footer>
+
+</body>
+</html>
