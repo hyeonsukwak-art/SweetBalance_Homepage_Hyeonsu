@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>곽현수의 홈페이지</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fafafa;
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+    .container {
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #222;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>안녕하세요, 곽현수입니다</h1>
+    <p id="today"></p>
+  </div>
+  <script>
+    const today = new Date();
+    const formatted = today.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+    });
+    document.getElementById("today").textContent = formatted;
+  </script>
+</body>
+</html>
