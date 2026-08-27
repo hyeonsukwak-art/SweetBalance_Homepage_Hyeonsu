@@ -169,14 +169,16 @@
   .planner-actions { text-align: center; margin: 28px 0 8px; display:flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
   .plan-summary {
-    display: none; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 560px; margin: 28px auto 0;
+    display: none; flex-direction: column; align-items: center; gap: 16px; max-width: 560px; margin: 28px auto 0;
   }
-  .plan-summary.show { display: grid; }
+  .plan-summary.show { display: flex; }
   .plan-summary .stat {
-    background: var(--sb-cream); border-radius: 16px; padding: 16px; text-align: center;
+    background: var(--sb-cream); border-radius: 16px; padding: 16px 28px; text-align: center;
+    display: flex; align-items: baseline; gap: 8px;
   }
-  .plan-summary .stat b { display:block; font-family: var(--font-display); font-size: 22px; color: var(--sb-green-dark); }
-  .plan-summary .stat span { font-size: 12px; color: var(--sb-text-mid); }
+  .plan-summary .stat b { font-family: var(--font-display); font-size: 22px; color: var(--sb-green-dark); }
+  .plan-summary .stat span { font-size: 13px; color: var(--sb-text-mid); }
+  .cat-chips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 
   .week-grid {
     display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 32px;
@@ -193,7 +195,7 @@
   .day-card:hover { transform: translateY(-4px); box-shadow: 0 14px 26px -18px rgba(0,97,78,0.4); border-color: rgba(0,97,78,0.15); }
   .day-card .day-label { font-size: 12px; font-weight: 700; color: var(--sb-green); letter-spacing: 0.05em; margin-bottom: 10px; }
   .day-card .day-emoji { font-size: 30px; margin-bottom: 8px; }
-  .day-card .day-menu { font-size: 14px; font-weight: 500; color: var(--sb-dark); line-height: 1.4; margin-bottom: 10px; min-height: 38px; }
+  .day-card .day-menu { font-size: 13px; font-weight: 500; color: var(--sb-dark); line-height: 1.4; margin-bottom: 10px; min-height: 54px; display: flex; align-items: center; justify-content: center; }
   .day-card .day-tags { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; }
 
   @keyframes dayIn { to { opacity: 1; transform: translateY(0); } }
@@ -306,9 +308,8 @@
       <div id="weekGrid" class="week-grid" style="display:none;"></div>
 
       <div id="planSummary" class="plan-summary">
-        <div class="stat"><b id="sumKcal">0</b><span>일 평균 칼로리</span></div>
-        <div class="stat"><b id="sumProtein">0g</b><span>일 평균 단백질</span></div>
-        <div class="stat"><b id="sumMenus">0</b><span>종류의 메뉴</span></div>
+        <div class="stat stat-wide"><b id="sumMenus">0</b><span>가지 스윗밸런스 메뉴로 구성했어요</span></div>
+        <div class="cat-chips" id="sumCategories"></div>
       </div>
 
       <div class="planner-actions">
@@ -358,20 +359,59 @@
 </footer>
 
 <script>
+  // 스윗밸런스 실제 판매 메뉴 목록 (이 목록에 있는 메뉴만 추천에 노출됩니다)
   const MENU_POOL = [
-    { emoji: "🍗", name: "닭가슴살 샐러드", kcal: 320, protein: 28, tag: "BEST" },
-    { emoji: "🥣", name: "단백질 보울", kcal: 380, protein: 32, tag: "단백질 UP" },
-    { emoji: "🌯", name: "통곡물 랩", kcal: 350, protein: 22, tag: "든든" },
-    { emoji: "🍤", name: "새우 아보카도 샐러드", kcal: 340, protein: 24, tag: "저탄수" },
-    { emoji: "🐟", name: "연어 포케", kcal: 400, protein: 26, tag: "오메가3" },
-    { emoji: "🥩", name: "안심 스테이크 샐러드", kcal: 420, protein: 34, tag: "단백질 UP" },
-    { emoji: "🥑", name: "아보카도 에그 볼", kcal: 310, protein: 20, tag: "저칼로리" },
-    { emoji: "🍚", name: "현미 단백질 곤약밥", kcal: 360, protein: 25, tag: "든든" },
-    { emoji: "🍲", name: "두부 스팀 채소", kcal: 290, protein: 21, tag: "저칼로리" },
-    { emoji: "🥙", name: "닭가슴살 케밥랩", kcal: 370, protein: 30, tag: "식단관리 추천" }
+    "올리브영_스파이시랜치포크밀", "올리브영_너비아니에그샐러드", "올리브영_훈제목살유자머스타드샐러드",
+    "올리브영_그릴드오리 메밀면 샐러드", "올리브영_핫치킨 메밀면 샐러드", "올리브영_불고기 메밀면 샐러드",
+    "330g_렌틸콩 닭가슴살 온샐러드", "330g_병아리콩 훈제목살 온샐러드", "330g_강낭콩 훈제오리 온샐러드",
+    "330g_귀리보리 쉬림프 온샐러드",
+    "닭가슴살 메밀면 샐러드", "불고기 메밀면 샐러드", "그릴드오리 메밀면 샐러드", "핫치킨 메밀면 샐러드",
+    "불고기 메밀면 샐러드와 참깨 드레싱", "닭가슴살 메밀면 샐러드와 참깨 드레싱",
+    "구운새우 메밀면 샐러드와 오리엔탈 드레싱", "핫치킨 메밀면 샐러드와 오리엔탈 드레싱",
+    "치폴레 핫 치킨 샐러드", "참치&게맛살 샐러드", "명란마요 새우 샐러드", "소불고기 샐러드",
+    "명란 치즈 먹물 파스타", "새우듬뿍 샐러드", "토마토 치즈 꼰낄리에 파스타", "쉬림프 감바스 파스타",
+    "바질 치즈 꼰낄리에 파스타", "머쉬룸 알리오 파스타", "크림오징어 샐러드", "크랩 샐러드",
+    "발사믹 보코치니 샐러드", "스파이시 쉬림프 샐러드", "매쉬드 포테이토와 쿠스쿠스 샐러드",
+    "소불고기와 귀리보리 샐러드", "담백한 훈제 오리와 고구마 매쉬 샐러드",
+    "스모키 그릴드 닭가슴살과 할라피뇨 샐러드", "촉촉한 그릴드 닭가슴살과 병아리콩 샐러드",
+    "에그반쎄오샐러드", "상큼한모짜렐라샐러드", "훈제오리메밀면샐러드", "훈제오리귀리샐러드",
+    "파히타샐러드", "돈불고기두부누들샐러드", "그릴드쉬림프보리샐러드", "분짜곤약면샐러드",
+    "하와이안또띠아샐러드", "사워피칸테닭가슴살샐러드", "포크발사믹머쉬룸샐러드", "새우만다린샐러드",
+    "훈제목살유자머스타드샐러드", "닭가슴살카펠리니샐러드", "스모키그릴드치킨스파이시랜치샐러드",
+    "오징어버섯구이샐러드", "훈제목살스테이크샐러드", "너비아니에그샐러드", "닭가슴살두부면샐러드",
+    "소불고기후무스샐러드", "허니리코타치즈 샐러드", "케이준 치킨 샐러드", "군고구마 단호박 샐러드",
+    "단호박 메쉬 스모키 그릴드 닭가슴살 샐러드", "닭가슴살 고구마 샐러드", "쉬림프 에그 샐러드",
+    "모짜렐라 카프레제 샐러드", "닭가슴살 리코타 샐러드", "푸실리 파스타 샐러드",
+    "고소한 리코타 치즈와 시금치 페스토 샐러드", "바질 리코타 샐러드", "멕시칸 치킨 샐러드",
+    "당근라페 리코타 샐러드", "단호박 리코타 심플 샐러드", "요거트 구운 단호박 샐러드",
+    "급식_와사비 메밀 치킨 샐러드", "급식_갈릭 파스타 치킨 샐러드", "급식_토마토 파스타 치킨 샐러드",
+    "오징어 듬뿍 샐러드", "쿠팡_쿠스쿠스 케이준 치킨 샐러드", "쿠팡_콘 살사 푸실리 파스타 샐러드",
+    "쿠팡_닭가슴살 리코타치즈 샐러드", "쿠팡_허니리코타치즈 후르츠 샐러드"
   ];
   const DAYS = ["월", "화", "수", "목", "금", "토", "일"];
-  const badgeClass = { "단백질 UP": "sb-badge-yellow", "BEST": "sb-badge-green", "식단관리 추천": "sb-badge-green" };
+
+  function categorize(name) {
+    if (name.includes("파스타")) return { label: "파스타", cls: "sb-badge-yellow" };
+    if (/메밀면|누들|곤약면|카펠리니|두부면/.test(name)) return { label: "면 요리", cls: "sb-badge-blue" };
+    if (/랩|또띠아|파히타/.test(name)) return { label: "랩/또띠아", cls: "sb-badge-green" };
+    return { label: "샐러드", cls: "sb-badge-green" };
+  }
+
+  function pickEmoji(name) {
+    if (/파스타|꼰낄리에|카펠리니|푸실리/.test(name)) return "🍝";
+    if (/메밀면|누들|곤약면|두부면/.test(name)) return "🍜";
+    if (/랩|또띠아|파히타/.test(name)) return "🌯";
+    if (/새우|쉬림프|감바스/.test(name)) return "🍤";
+    if (/오리/.test(name)) return "🦆";
+    if (/닭가슴살|치킨/.test(name)) return "🍗";
+    if (/불고기|스테이크/.test(name)) return "🥩";
+    if (/참치|게맛살|크랩/.test(name)) return "🦀";
+    if (/에그|계란/.test(name)) return "🥚";
+    if (/고구마|단호박/.test(name)) return "🍠";
+    if (/치즈|리코타|모짜렐라|카프레제/.test(name)) return "🧀";
+    if (/오징어/.test(name)) return "🦑";
+    return "🥗";
+  }
 
   function pickWeek() {
     const pool = [...MENU_POOL];
@@ -389,17 +429,17 @@
     const grid = document.getElementById("weekGrid");
     grid.innerHTML = "";
 
-    week.forEach((item, i) => {
-      const badge = badgeClass[item.tag] || "sb-badge-blue";
+    week.forEach((name, i) => {
+      const cat = categorize(name);
       const card = document.createElement("div");
       card.className = "day-card";
       card.style.animationDelay = (i * 0.06) + "s";
       card.innerHTML = `
         <div class="day-label">${DAYS[i]}요일</div>
-        <div class="day-emoji">${item.emoji}</div>
-        <div class="day-menu">${item.name}</div>
+        <div class="day-emoji">${pickEmoji(name)}</div>
+        <div class="day-menu">${name}</div>
         <div class="day-tags">
-          <span class="${badge}">${item.tag}</span>
+          <span class="${cat.cls}">${cat.label}</span>
         </div>
       `;
       grid.appendChild(card);
@@ -410,12 +450,16 @@
     document.getElementById("shuffleBtn").style.display = "inline-block";
     document.getElementById("generateBtn").textContent = "✨ 일주일 식단 추천받기";
 
-    const avgKcal = Math.round(week.reduce((s, m) => s + m.kcal, 0) / 7);
-    const avgProtein = Math.round(week.reduce((s, m) => s + m.protein, 0) / 7);
-    const uniqueMenus = new Set(week.map(m => m.name)).size;
-    document.getElementById("sumKcal").textContent = avgKcal;
-    document.getElementById("sumProtein").textContent = avgProtein + "g";
-    document.getElementById("sumMenus").textContent = uniqueMenus;
+    const counts = {};
+    week.forEach(name => {
+      const label = categorize(name).label;
+      counts[label] = (counts[label] || 0) + 1;
+    });
+    const chipsHtml = Object.entries(counts)
+      .map(([label, count]) => `<span class="sb-badge-blue">${label} ${count}</span>`)
+      .join("");
+    document.getElementById("sumCategories").innerHTML = chipsHtml;
+    document.getElementById("sumMenus").textContent = week.length;
     document.getElementById("planSummary").classList.add("show");
   }
 </script>
